@@ -8,6 +8,7 @@ public class DragDrop : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
+    private Canvas parentCanva;
     private Item item;
 
     public ItemInfo itemInfo;
@@ -16,6 +17,7 @@ public class DragDrop : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         rectTransform = GetComponent<RectTransform>(); 
         canvasGroup = GetComponent<CanvasGroup>();
+        parentCanva = GetComponentInParent<Canvas>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -27,7 +29,7 @@ public class DragDrop : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta; //Should divide by de Canvas scale factor if it's not scaled at 1
+        rectTransform.anchoredPosition += eventData.delta / parentCanva.scaleFactor; //Should divide by de Canvas scale factor if it's not scaled at 1
     }
 
     public void OnEndDrag(PointerEventData eventData)
