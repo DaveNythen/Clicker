@@ -11,8 +11,8 @@ public class SellItemSlot : MonoBehaviour, IDropHandler
 
     private void Start()
     {
-        invBuild = FindObjectOfType<InvBuild>();
-        audioMan = FindObjectOfType<AudioManager>();
+        invBuild = FindFirstObjectByType<InvBuild>();
+        audioMan = FindFirstObjectByType<AudioManager>();
     }
 
     public void SetInventory(Inventory inventory)

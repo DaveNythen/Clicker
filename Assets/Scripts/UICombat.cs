@@ -12,7 +12,7 @@ public class UICombat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameMan = FindObjectOfType<GameManager>();
+        gameMan = FindFirstObjectByType<GameManager>();
 
         stageText.text = "Stage " + PlayerStats.Instance.stage;
     }

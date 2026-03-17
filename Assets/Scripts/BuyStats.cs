@@ -42,7 +42,7 @@ public class BuyStats : MonoBehaviour
     {
         if (StatsPanelInfo.activeSelf)  //Upgrade stats in real time if the panel is visible
         {
-            PlayerStatsInfo statsInfo = FindObjectOfType<PlayerStatsInfo>();
+            PlayerStatsInfo statsInfo = FindFirstObjectByType<PlayerStatsInfo>();
             statsInfo.RefreshStatsInfo();
         }
     }

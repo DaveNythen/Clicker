@@ -18,7 +18,7 @@ public class DragItemSlot : MonoBehaviour, IDropHandler
 
     private void Start()
     {
-        invBuild = FindObjectOfType<InvBuild>();
+        invBuild = FindFirstObjectByType<InvBuild>();
     }
 
     public void OnDrop(PointerEventData eventData)

@@ -12,7 +12,7 @@ public class PlayerStats : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = FindObjectOfType<PlayerStats>();
+                _instance = FindFirstObjectByType<PlayerStats>();
 
                 if (_instance == null)
                 {

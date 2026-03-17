@@ -17,10 +17,10 @@ public class InventoryHandler : MonoBehaviour
     void Awake()
     {
         uiInventory = GetComponent<UI_Inventory>();
-        stats = FindObjectOfType<BuyStats>();
-        sellItemSlot = FindObjectOfType<SellItemSlot>();
-        invBuild = FindObjectOfType<InvBuild>();
-        savedDrop = FindObjectOfType<SaveDrop>();
+        stats = FindFirstObjectByType<BuyStats>();
+        sellItemSlot = FindFirstObjectByType<SellItemSlot>();
+        invBuild = FindFirstObjectByType<InvBuild>();
+        savedDrop = FindFirstObjectByType<SaveDrop>();
 
         LoadInventory();
     }
@@ -104,7 +104,7 @@ public class InventoryHandler : MonoBehaviour
             invBuild.LoadItemEquipped(itemsBuild);
 
             //Progress Bars
-            ProgressBar[] progressBars = FindObjectsOfType<ProgressBar>();
+            ProgressBar[] progressBars = FindObjectsByType<ProgressBar>(FindObjectsSortMode.None);
             foreach (ProgressBar bar in progressBars)
             {
                 foreach (ProgressBarData barData in InventorySaveData.Instance.progressBarDatas)
@@ -156,7 +156,7 @@ public class InventoryHandler : MonoBehaviour
 
         //Progress Bars
         List<ProgressBarData> barsData = new List<ProgressBarData>();
-        ProgressBar[] progressBars = FindObjectsOfType<ProgressBar>();
+        ProgressBar[] progressBars = FindObjectsByType<ProgressBar>(FindObjectsSortMode.None);
 
         foreach (ProgressBar bar in progressBars)
         {

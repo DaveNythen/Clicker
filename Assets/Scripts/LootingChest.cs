@@ -12,8 +12,8 @@ public class LootingChest : MonoBehaviour
 
     void Awake()
     {
-        saveDrop = FindObjectOfType<SaveDrop>();
-        audioMan = FindObjectOfType<AudioManager>();
+        saveDrop = FindFirstObjectByType<SaveDrop>();
+        audioMan = FindFirstObjectByType<AudioManager>();
         audioMan.PlayMusic(audioMan.jungleMusic);
     }
 

@@ -23,7 +23,7 @@ public class MenuNav : MonoBehaviour
             loadGameButton.interactable = false;
         }
         
-        gameMan = FindObjectOfType<GameManager>();
+        gameMan = FindFirstObjectByType<GameManager>();
     }
 
     public void StartGame(bool isNewGame)

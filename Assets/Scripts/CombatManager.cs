@@ -12,7 +12,7 @@ public class CombatManager : MonoBehaviour
     private AudioManager audioMan;
     void Start()
     {
-        audioMan = FindObjectOfType<AudioManager>();
+        audioMan = FindFirstObjectByType<AudioManager>();
         audioMan.PlayMusic(audioMan.combatMusic);
 
         stage = PlayerStats.Instance.stage;

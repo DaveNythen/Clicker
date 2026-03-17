@@ -28,7 +28,7 @@ public class ProgressBar : MonoBehaviour
 
     private void Start()
     {
-        buyStats = FindObjectOfType<BuyStats>();
+        buyStats = FindFirstObjectByType<BuyStats>();
     }
 
     void Update()

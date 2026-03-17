@@ -12,7 +12,7 @@ public class ItemInfo : MonoBehaviour
     private void Start()
     {
         itemInfo = GetComponentInChildren<Text>();
-        build = FindObjectOfType<InvBuild>();
+        build = FindFirstObjectByType<InvBuild>();
         rectTransform = GetComponent<RectTransform>();
 
         gameObject.SetActive(false);

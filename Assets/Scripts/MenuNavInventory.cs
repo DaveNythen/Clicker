@@ -10,7 +10,7 @@ public class MenuNavInventory : MonoBehaviour
 
     void Start()
     {
-        gameMan = FindObjectOfType<GameManager>();
+        gameMan = FindFirstObjectByType<GameManager>();
     }
 
     public void Continue()

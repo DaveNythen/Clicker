@@ -23,7 +23,7 @@ public class InvBuild : MonoBehaviour
 
         StatsPanelInfo.SetActive(false);
 
-        audioMan = FindObjectOfType<AudioManager>();
+        audioMan = FindFirstObjectByType<AudioManager>();
     }
 
     private void Slot1_OnItemDropped(object sender, DragItemSlot.OnItemDroppedEventArgs e)
@@ -148,7 +148,7 @@ public class InvBuild : MonoBehaviour
 
         if (StatsPanelInfo.activeSelf)  //Upgrade stats info in real time if the panel is visible
         {
-            PlayerStatsInfo statsInfo = FindObjectOfType<PlayerStatsInfo>();
+            PlayerStatsInfo statsInfo = FindFirstObjectByType<PlayerStatsInfo>();
             statsInfo.RefreshStatsInfo();
         }
 
