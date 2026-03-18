@@ -12,6 +12,8 @@ public class Item : MonoBehaviour
 
 	public ItemType itemType;
 	public int id;
+	public bool isNew = false;
+	public bool isEquipped = false;
 
 	[Header("Item Sprites")]
 	public Sprite damageSprite;

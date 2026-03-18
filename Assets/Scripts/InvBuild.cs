@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using static DragItemSlot;
+using static UnityEditor.Progress;
 
 public class InvBuild : MonoBehaviour
 {
@@ -12,6 +15,13 @@ public class InvBuild : MonoBehaviour
 	private Item[] itemsEquipped = new Item[4];
 
 	private AudioManager audioMan;
+
+	public event EventHandler<OnEquipItemArgs> OnEquipItem;
+	public class OnEquipItemArgs : EventArgs
+	{
+		public Item equipedItem;
+		public Item unequipedItem;
+	}
 
 	private void Awake()
 	{
@@ -33,12 +43,15 @@ public class InvBuild : MonoBehaviour
 		{
 			Debug.Log("item unequipped -> " + itemsEquipped[0]);
 			unequipItem = itemsEquipped[0];
+			unequipItem.isEquipped = false;
 		}
 
 		audioMan.PlaySFX(audioMan.swordHit);
 		itemsEquipped[0] = e.item;
+		e.item.isEquipped = true;
 		Debug.Log(e.item + " equipped on slot1");
 		UpdatePlayerStats(e.item, unequipItem);
+		OnEquipItem?.Invoke(this, new OnEquipItemArgs { equipedItem = e.item, unequipedItem = unequipItem });
 	}
 
 	private void Slot2_OnItemDropped(object sender, DragItemSlot.OnItemDroppedEventArgs e)
@@ -49,12 +62,16 @@ public class InvBuild : MonoBehaviour
 		{
 			Debug.Log("item unequipped -> " + itemsEquipped[1]);
 			unequipItem = itemsEquipped[1];
+			unequipItem.isEquipped = false;
 		}
 
 		audioMan.PlaySFX(audioMan.swordHit);
 		itemsEquipped[1] = e.item;
+		e.item.isEquipped = true;
 		Debug.Log(e.item + " equipped on slot2");
 		UpdatePlayerStats(e.item, unequipItem);
+		OnEquipItem?.Invoke(this, new OnEquipItemArgs { equipedItem = e.item, unequipedItem = unequipItem });
+
 	}
 
 	private void Slot3_OnItemDropped(object sender, DragItemSlot.OnItemDroppedEventArgs e)
@@ -65,12 +82,16 @@ public class InvBuild : MonoBehaviour
 		{
 			Debug.Log("item unequipped -> " + itemsEquipped[2]);
 			unequipItem = itemsEquipped[2];
+			unequipItem.isEquipped = false;
 		}
 
 		audioMan.PlaySFX(audioMan.swordHit);
 		itemsEquipped[2] = e.item;
+		e.item.isEquipped = true;
 		Debug.Log(e.item + " equipped on slot3");
 		UpdatePlayerStats(e.item, unequipItem);
+		OnEquipItem?.Invoke(this, new OnEquipItemArgs { equipedItem = e.item, unequipedItem = unequipItem });
+
 	}
 
 	private void Slot4_OnItemDropped(object sender, DragItemSlot.OnItemDroppedEventArgs e)
@@ -81,12 +102,16 @@ public class InvBuild : MonoBehaviour
 		{
 			Debug.Log("item unequipped -> " + itemsEquipped[3]);
 			unequipItem = itemsEquipped[3];
+			unequipItem.isEquipped = false;
 		}
 
 		audioMan.PlaySFX(audioMan.swordHit);
 		itemsEquipped[3] = e.item;
+		e.item.isEquipped = true;
 		Debug.Log(e.item + " equipped on slot4");
 		UpdatePlayerStats(e.item, unequipItem);
+		OnEquipItem?.Invoke(this, new OnEquipItemArgs { equipedItem = e.item, unequipedItem = unequipItem });
+
 	}
 
 	public bool isItemEquipped(Item itemToCheck)
@@ -150,7 +175,6 @@ public class InvBuild : MonoBehaviour
 			PlayerStatsInfo statsInfo = FindFirstObjectByType<PlayerStatsInfo>();
 			statsInfo.RefreshStatsInfo();
 		}
-
 	}
 
 	//------ Only for save&load --------

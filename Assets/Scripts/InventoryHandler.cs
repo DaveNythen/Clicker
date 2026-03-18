@@ -72,11 +72,10 @@ public class InventoryHandler : MonoBehaviour
 				item.SetItemValues(); //For the sprite
 				item.id = itemData.id;
 				item.amount = itemData.amount;
+				item.isNew = false;
 
 				itemsLoaded.Add(item);
 			}
-
-			inventory.AddItems(itemsLoaded.ToArray());
 
 			//Build
 			Item[] itemsBuild = new Item[4];
@@ -102,6 +101,14 @@ public class InventoryHandler : MonoBehaviour
 			}
 
 			invBuild.LoadItemEquipped(itemsBuild);
+
+			//Equipped items
+			foreach (Item item in itemsLoaded)
+			{
+				item.isEquipped = invBuild.isItemEquipped(item);
+			}
+
+			inventory.AddItems(itemsLoaded.ToArray());
 
 			//Progress Bars
 			ProgressBar[] progressBars = FindObjectsByType<ProgressBar>(FindObjectsSortMode.None);

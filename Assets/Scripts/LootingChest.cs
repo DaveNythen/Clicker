@@ -57,6 +57,9 @@ public class LootingChest : MonoBehaviour
 		itemDroped[1] = item2.GetComponent<Item>();
 		itemDroped[1].SetItemValues();
 
+		itemDroped[0].isNew = true;
+		itemDroped[1].isNew = true;
+
 		return itemDroped;
 	}
 

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class UI_Inventory : MonoBehaviour
 {
 	private Inventory inventory;
+	private InvBuild build;
 	private Transform itemGrid;
 	private Transform itemSlotTemplate;
 
@@ -14,6 +15,7 @@ public class UI_Inventory : MonoBehaviour
 	{
 		itemGrid = transform.Find("ItemGrid");
 		itemSlotTemplate = itemGrid.Find("itemSlotTemplate");
+		build = FindFirstObjectByType<InvBuild>();
 	}
 
 	public void SetInventory(Inventory inventory)
@@ -25,6 +27,7 @@ public class UI_Inventory : MonoBehaviour
 
 		inventory.OnCoinsChanged += Inventory_OnCoinsChanged;
 		inventory.OnInventoryFull += Inventory_OnInventoryFull;
+		build.OnEquipItem += EquipItemShowSprite;
 	}
 
 	private void Inventory_OnInventoryFull(object sender, System.EventArgs e)
@@ -59,10 +62,33 @@ public class UI_Inventory : MonoBehaviour
 			Transform itemSlotTransform = Instantiate(itemSlotTemplate, itemGrid);
 			itemSlotTransform.gameObject.SetActive(true);
 
-			Image image = itemSlotTransform.Find("Image").GetComponent<Image>();
+			ItemSlot itemSlot = itemSlotTransform.GetComponent<ItemSlot>();
+			itemSlot.SetSprite(item.GetSprite());
+			itemSlot.UpdateNew(item.isNew);
+			itemSlot.SetItemID(item.id);
+			itemSlot.UpdateEquiped(item.isEquipped);
+			/*Image image = itemSlotTransform.Find("Image").GetComponent<Image>();
 			image.sprite = item.GetSprite();
+			GameObject newSprite = itemSlotTemplate.Find("New").gameObject;
+			newSprite.SetActive(item.isNew);*/
 
 			itemSlotTransform.GetComponentInChildren<DragDrop>().SetItem(item);
+		}
+	}
+
+	private void EquipItemShowSprite(object sender, InvBuild.OnEquipItemArgs e)
+	{
+		foreach(ItemSlot slot in itemGrid.GetComponentsInChildren<ItemSlot>())
+		{
+			if (slot.GetID() == e.equipedItem.id)
+			{
+				slot.UpdateEquiped(e.equipedItem.isEquipped);
+			}
+			else if (slot.GetID() == e.unequipedItem.id)
+			{
+				slot.UpdateEquiped(e.unequipedItem.isEquipped);
+
+			}
 		}
 	}
 
