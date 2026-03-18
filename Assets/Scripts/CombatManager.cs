@@ -75,7 +75,7 @@ public class CombatManager : MonoBehaviour
 			{
 				yield return new WaitForSeconds(0.5f);
 				bossHP.current -= PlayerStats.Instance.passiveDamage;
-				if (PlayerStats.Instance.passiveDamage > 0f)
+				if (Mathf.RoundToInt(PlayerStats.Instance.passiveDamage) > 0f)
 					uiCombat.ShowDamageIndicator(Mathf.RoundToInt(PlayerStats.Instance.passiveDamage), Color.lightBlue, bossPos.transform.position);
 			}
 
@@ -91,8 +91,7 @@ public class CombatManager : MonoBehaviour
 			yield return new WaitForSeconds(0.5f);
 			damage = 1f + (0.15f * stage);
 			playerHP.current -= damage;
-			if(damage > 0f)
-				uiCombat.ShowDamageIndicator(Mathf.RoundToInt(damage), Color.lightCoral, playerPos.transform.position);
+			uiCombat.ShowDamageIndicator(Mathf.RoundToInt(damage), Color.lightCoral, playerPos.transform.position);
 		}
 
 		PlayerDied();
