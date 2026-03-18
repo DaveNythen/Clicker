@@ -3861,6 +3861,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageText: {fileID: 1605256123}
+  damageText: {fileID: 1056115989328685763, guid: dd6c50b2e6b1e6f43a9fb6f965fa9f1b,
+    type: 3}
 --- !u!1 &303423106
 GameObject:
   m_ObjectHideFlags: 0
@@ -4276,6 +4278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stage: 1
+  playerPos: {fileID: 7680863339531987753}
+  bossPos: {fileID: 6026640688984958468}
   playerHP: {fileID: 549630314}
   bossHP: {fileID: 537694600}
 --- !u!1 &336977022
@@ -28111,6 +28115,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49806c784ef832a42bd8c4a92f157e9d, type: 3}
+--- !u!1 &6026640688984958468 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3462564601307162026, guid: 49806c784ef832a42bd8c4a92f157e9d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6026640688984958467}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7680863339531987752
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28122,7 +28132,7 @@ PrefabInstance:
     - target: {fileID: 7680863339029346812, guid: a7df78e36cfef4049a3f69ecefa81525,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7680863339029346812, guid: a7df78e36cfef4049a3f69ecefa81525,
         type: 3}
@@ -28194,6 +28204,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7df78e36cfef4049a3f69ecefa81525, type: 3}
+--- !u!1 &7680863339531987753 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7372522625465561873, guid: a7df78e36cfef4049a3f69ecefa81525,
+    type: 3}
+  m_PrefabInstance: {fileID: 7680863339531987752}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -4,20 +4,23 @@ using UnityEngine.UI;
 public class UICombat : MonoBehaviour
 {
 	public Text stageText;
+	public GameObject damageText;
 
 	private GameManager gameMan;
 
-	// Start is called before the first frame update
-	void Start()
+	private void Awake()
 	{
 		gameMan = FindFirstObjectByType<GameManager>();
+	}
 
+	void Start()
+	{
 		stageText.text = "Stage " + PlayerStats.Instance.stage;
 	}
 
-	// Update is called once per frame
-	void Update()
+	public void ShowDamageIndicator (int damage, Color color, Vector3 position)
 	{
-
+		UI_DamageIndicator indicator = Instantiate(damageText, position, Quaternion.identity).GetComponent<UI_DamageIndicator>();
+		indicator.SetDamageText(damage, color);
 	}
 }

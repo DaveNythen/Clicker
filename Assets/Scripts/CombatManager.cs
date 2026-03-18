@@ -6,13 +6,25 @@ public class CombatManager : MonoBehaviour
 {
 	public int stage;
 
+	[Header("Characters Pos")]
+	public GameObject playerPos;
+	public GameObject bossPos;
+
+	[Header("Bars")]
 	public ProgressBar playerHP;
 	public ProgressBar bossHP;
 
 	private AudioManager audioMan;
-	void Start()
+	private UICombat uiCombat;
+
+	private void Awake()
 	{
 		audioMan = FindFirstObjectByType<AudioManager>();
+		uiCombat = FindFirstObjectByType<UICombat>();
+	}
+
+	void Start()
+	{
 		audioMan.PlayMusic(audioMan.combatMusic);
 
 		stage = PlayerStats.Instance.stage;
@@ -38,6 +50,8 @@ public class CombatManager : MonoBehaviour
 	private void DamageBoss()
 	{
 		bossHP.current -= PlayerStats.Instance.damage;
+		uiCombat.ShowDamageIndicator(Mathf.RoundToInt(PlayerStats.Instance.damage), Color.red, bossPos.transform.position);
+
 		if (bossHP.current <= 0)
 		{
 			BossDeafeated();
@@ -61,6 +75,8 @@ public class CombatManager : MonoBehaviour
 			{
 				yield return new WaitForSeconds(0.5f);
 				bossHP.current -= PlayerStats.Instance.passiveDamage;
+				if (PlayerStats.Instance.passiveDamage > 0f)
+					uiCombat.ShowDamageIndicator(Mathf.RoundToInt(PlayerStats.Instance.passiveDamage), Color.lightBlue, bossPos.transform.position);
 			}
 
 			BossDeafeated();
@@ -69,10 +85,14 @@ public class CombatManager : MonoBehaviour
 
 	IEnumerator DecreasePlayerHPxTime()
 	{
+		float damage = 0f;
 		while (playerHP.current > 0)
 		{
 			yield return new WaitForSeconds(0.5f);
-			playerHP.current -= 1f + (0.15f * stage);
+			damage = 1f + (0.15f * stage);
+			playerHP.current -= damage;
+			if(damage > 0f)
+				uiCombat.ShowDamageIndicator(Mathf.RoundToInt(damage), Color.lightCoral, playerPos.transform.position);
 		}
 
 		PlayerDied();
