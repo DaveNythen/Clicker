@@ -1,55 +1,55 @@
-﻿using UnityEngine;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
 
-public static class SaveSystem 
+public static class SaveSystem
 {
 
-    private static string path = Application.persistentDataPath + "/gameData.buh";
+	private static string path = Application.persistentDataPath + "/gameData.buh";
 
-    public static void SaveData(PlayerStats playerStats, InventorySaveData inventorySave)
-    {
-        BinaryFormatter formatter = new BinaryFormatter();
-        
-        FileStream stream = File.Create(path);
+	public static void SaveData(PlayerStats playerStats, InventorySaveData inventorySave)
+	{
+		BinaryFormatter formatter = new BinaryFormatter();
 
-        GameData data = new GameData(playerStats, inventorySave);
+		FileStream stream = File.Create(path);
 
-        formatter.Serialize(stream, data);
-        stream.Close();
-    }
+		GameData data = new GameData(playerStats, inventorySave);
 
-    public static GameData LoadData()
-    {
-        if (SaveFileExists())
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
+		formatter.Serialize(stream, data);
+		stream.Close();
+	}
 
-            FileStream stream = File.Open(path, FileMode.Open);
+	public static GameData LoadData()
+	{
+		if (SaveFileExists())
+		{
+			BinaryFormatter formatter = new BinaryFormatter();
 
-            GameData data = formatter.Deserialize(stream) as GameData;
-            stream.Close();
+			FileStream stream = File.Open(path, FileMode.Open);
 
-            return data;
-        }
-        else
-        {
-            Debug.LogError("Save file not found in " + path);
-            return null;
-        }
+			GameData data = formatter.Deserialize(stream) as GameData;
+			stream.Close();
 
-    }
+			return data;
+		}
+		else
+		{
+			Debug.LogError("Save file not found in " + path);
+			return null;
+		}
 
-    public static void DeleteSaveFile()
-    {
-        if (SaveFileExists())
-        {
-            File.Delete(path);
-        }
-    }
+	}
 
-    public static bool SaveFileExists()
-    {
-        return File.Exists(path);
-    }
+	public static void DeleteSaveFile()
+	{
+		if (SaveFileExists())
+		{
+			File.Delete(path);
+		}
+	}
+
+	public static bool SaveFileExists()
+	{
+		return File.Exists(path);
+	}
 }

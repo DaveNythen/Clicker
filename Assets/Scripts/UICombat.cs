@@ -1,25 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UICombat : MonoBehaviour
 {
-    public Text stageText;
+	public Text stageText;
 
-    private GameManager gameMan;
+	private GameManager gameMan;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        gameMan = FindFirstObjectByType<GameManager>();
+	// Start is called before the first frame update
+	void Start()
+	{
+		gameMan = FindFirstObjectByType<GameManager>();
 
-        stageText.text = "Stage " + PlayerStats.Instance.stage;
-    }
+		stageText.text = "Stage " + PlayerStats.Instance.stage;
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	// Update is called once per frame
+	void Update()
+	{
+
+	}
 }

@@ -4,83 +4,83 @@ using UnityEngine.SceneManagement;
 
 public class LootingChest : MonoBehaviour
 {
-    public GameObject[] itemsToDrop = new GameObject[4];
-    
-    private SaveDrop saveDrop;
-    private AudioManager audioMan;
-    private bool isChestOpen = false;
+	public GameObject[] itemsToDrop = new GameObject[4];
 
-    void Awake()
-    {
-        saveDrop = FindFirstObjectByType<SaveDrop>();
-        audioMan = FindFirstObjectByType<AudioManager>();
-        audioMan.PlayMusic(audioMan.jungleMusic);
-    }
+	private SaveDrop saveDrop;
+	private AudioManager audioMan;
+	private bool isChestOpen = false;
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0) && !isChestOpen)
-        {
-            OpenChest();
-        }
-    }
+	void Awake()
+	{
+		saveDrop = FindFirstObjectByType<SaveDrop>();
+		audioMan = FindFirstObjectByType<AudioManager>();
+		audioMan.PlayMusic(audioMan.jungleMusic);
+	}
 
-    private void OpenChest()
-    {
-        isChestOpen = true;
-        audioMan.PlaySFX(audioMan.chestOpen);
-        audioMan.PlaySFX(audioMan.brightSound);
+	void Update()
+	{
+		if (Input.GetMouseButtonDown(0) && !isChestOpen)
+		{
+			OpenChest();
+		}
+	}
 
-        Animator anim = GetComponentInChildren<Animator>();
-        anim.SetBool("isOpening", true);
+	private void OpenChest()
+	{
+		isChestOpen = true;
+		audioMan.PlaySFX(audioMan.chestOpen);
+		audioMan.PlaySFX(audioMan.brightSound);
 
-        SaveItems();
-    }
+		Animator anim = GetComponentInChildren<Animator>();
+		anim.SetBool("isOpening", true);
 
-    Item[] DropItem()
-    {
-        Item[] itemDroped = new Item[2];
+		SaveItems();
+	}
 
-        int randomNumber = Random.Range(0, itemsToDrop.Length);
-        int secondRandomNummber = Random.Range(0, itemsToDrop.Length);
+	Item[] DropItem()
+	{
+		Item[] itemDroped = new Item[2];
 
-        while (secondRandomNummber == randomNumber) //Drop diferent items
-        {
-            secondRandomNummber = Random.Range(0, itemsToDrop.Length);
-        }
+		int randomNumber = Random.Range(0, itemsToDrop.Length);
+		int secondRandomNummber = Random.Range(0, itemsToDrop.Length);
 
-        GameObject item1 = Instantiate(itemsToDrop[randomNumber], saveDrop.transform); //Save it inside the don't destroy, to keep them between scenes
-        itemDroped[0] = item1.GetComponent<Item>();
-        itemDroped[0].SetItemValues();
+		while (secondRandomNummber == randomNumber) //Drop diferent items
+		{
+			secondRandomNummber = Random.Range(0, itemsToDrop.Length);
+		}
 
-        GameObject item2 = Instantiate(itemsToDrop[secondRandomNummber], saveDrop.transform);
-        itemDroped[1] = item2.GetComponent<Item>();
-        itemDroped[1].SetItemValues();
+		GameObject item1 = Instantiate(itemsToDrop[randomNumber], saveDrop.transform); //Save it inside the don't destroy, to keep them between scenes
+		itemDroped[0] = item1.GetComponent<Item>();
+		itemDroped[0].SetItemValues();
 
-        return itemDroped;
-    }
+		GameObject item2 = Instantiate(itemsToDrop[secondRandomNummber], saveDrop.transform);
+		itemDroped[1] = item2.GetComponent<Item>();
+		itemDroped[1].SetItemValues();
 
-    int DropCoins()
-    {
-        int coinsDroped;
+		return itemDroped;
+	}
 
-        PlayerStats playerStats = PlayerStats.Instance;
+	int DropCoins()
+	{
+		int coinsDroped;
 
-        coinsDroped = (int) (10f * playerStats.coinMultiplier * (playerStats.stage - 1));
-        return coinsDroped;
-    } 
+		PlayerStats playerStats = PlayerStats.Instance;
 
-    void SaveItems()
-    {
-        saveDrop.UpgradeDropSave(DropItem(), DropCoins());
+		coinsDroped = (int)(10f * playerStats.coinMultiplier * (playerStats.stage - 1));
+		return coinsDroped;
+	}
 
-        StartCoroutine(TransitionToInventory());
-    }
+	void SaveItems()
+	{
+		saveDrop.UpgradeDropSave(DropItem(), DropCoins());
 
-    IEnumerator TransitionToInventory()
-    {
-        yield return new WaitForSeconds(1.5f);
-        //transición
-        SceneManager.LoadScene((int)SceneIndexes.INVENTORY);
-    }
+		StartCoroutine(TransitionToInventory());
+	}
+
+	IEnumerator TransitionToInventory()
+	{
+		yield return new WaitForSeconds(1.5f);
+		//transición
+		SceneManager.LoadScene((int)SceneIndexes.INVENTORY);
+	}
 }

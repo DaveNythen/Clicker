@@ -3,66 +3,66 @@ using UnityEngine.UI;
 
 public class ItemInfo : MonoBehaviour
 {
-    private Text itemInfo;
-    private Item item;
-    private InvBuild build;
+	private Text itemInfo;
+	private Item item;
+	private InvBuild build;
 
-    private RectTransform rectTransform;
+	private RectTransform rectTransform;
 
-    private void Start()
-    {
-        itemInfo = GetComponentInChildren<Text>();
-        build = FindFirstObjectByType<InvBuild>();
-        rectTransform = GetComponent<RectTransform>();
+	private void Start()
+	{
+		itemInfo = GetComponentInChildren<Text>();
+		build = FindFirstObjectByType<InvBuild>();
+		rectTransform = GetComponent<RectTransform>();
 
-        gameObject.SetActive(false);
-    }
+		gameObject.SetActive(false);
+	}
 
-    public void FormatText(Item item)
-    {
-        SetItem(item);
+	public void FormatText(Item item)
+	{
+		SetItem(item);
 
-        string itemType = GetItemType();
-        string itemEquipped = ItemEquipped();
+		string itemType = GetItemType();
+		string itemEquipped = ItemEquipped();
 
-        itemInfo.text = itemType + " " + item.GetAmount() + "\n" + itemEquipped;
-    }
+		itemInfo.text = itemType + " " + item.GetAmount() + "\n" + itemEquipped;
+	}
 
-    private string GetItemType()
-    {
-        string itemType = "";
+	private string GetItemType()
+	{
+		string itemType = "";
 
-        switch (item.itemType)
-        {
-            case Item.ItemType.ClickDamage:
-                itemType = "Click Damage";
-                break;
-            case Item.ItemType.Coin:
-                itemType = "Coin Multiplier";
-                break;
-            case Item.ItemType.Health:
-                itemType = "Health";
-                break;
-            case Item.ItemType.PasiveDamage:
-                itemType = "Passive Damage";
-                break;
-        }
+		switch (item.itemType)
+		{
+			case Item.ItemType.ClickDamage:
+				itemType = "Click Damage";
+				break;
+			case Item.ItemType.Coin:
+				itemType = "Coin Multiplier";
+				break;
+			case Item.ItemType.Health:
+				itemType = "Health";
+				break;
+			case Item.ItemType.PasiveDamage:
+				itemType = "Passive Damage";
+				break;
+		}
 
-        return itemType;
-    }
+		return itemType;
+	}
 
-    private string ItemEquipped()
-    {
-        return build.isItemEquipped(item) ? "Equipped" : "Not Equipped";
-    }
+	private string ItemEquipped()
+	{
+		return build.isItemEquipped(item) ? "Equipped" : "Not Equipped";
+	}
 
-    private void SetItem(Item clickedItem)
-    {
-        item = clickedItem;
-    }
+	private void SetItem(Item clickedItem)
+	{
+		item = clickedItem;
+	}
 
-    public RectTransform GetRectTransform()
-    {
-        return rectTransform;
-    }
+	public RectTransform GetRectTransform()
+	{
+		return rectTransform;
+	}
 }

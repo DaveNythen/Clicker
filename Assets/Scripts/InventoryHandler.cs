@@ -4,166 +4,166 @@ using UnityEngine;
 
 public class InventoryHandler : MonoBehaviour
 {
-    public Item[] droppedItems = new Item[2];
-    public Item dummyItem;
-    private SaveDrop savedDrop;
+	public Item[] droppedItems = new Item[2];
+	public Item dummyItem;
+	private SaveDrop savedDrop;
 
-    private Inventory inventory;
-    private UI_Inventory uiInventory;
-    private BuyStats stats;
-    private SellItemSlot sellItemSlot;
-    private InvBuild invBuild;
+	private Inventory inventory;
+	private UI_Inventory uiInventory;
+	private BuyStats stats;
+	private SellItemSlot sellItemSlot;
+	private InvBuild invBuild;
 
-    void Awake()
-    {
-        uiInventory = GetComponent<UI_Inventory>();
-        stats = FindFirstObjectByType<BuyStats>();
-        sellItemSlot = FindFirstObjectByType<SellItemSlot>();
-        invBuild = FindFirstObjectByType<InvBuild>();
-        savedDrop = FindFirstObjectByType<SaveDrop>();
+	void Awake()
+	{
+		uiInventory = GetComponent<UI_Inventory>();
+		stats = FindFirstObjectByType<BuyStats>();
+		sellItemSlot = FindFirstObjectByType<SellItemSlot>();
+		invBuild = FindFirstObjectByType<InvBuild>();
+		savedDrop = FindFirstObjectByType<SaveDrop>();
 
-        LoadInventory();
-    }
+		LoadInventory();
+	}
 
-    void Start()
-    {
-        //Set inventories to use the same instance
-        uiInventory.SetInventory(inventory);
-        stats.SetInventory(inventory);
-        sellItemSlot.SetInventory(inventory);
+	void Start()
+	{
+		//Set inventories to use the same instance
+		uiInventory.SetInventory(inventory);
+		stats.SetInventory(inventory);
+		sellItemSlot.SetInventory(inventory);
 
-        //Add the drop form the treasure
-        droppedItems = savedDrop.dropedItems;
-        inventory.AddItems(droppedItems);
-        inventory.AddCoins(savedDrop.dropedCoins);
-    }
+		//Add the drop form the treasure
+		droppedItems = savedDrop.dropedItems;
+		inventory.AddItems(droppedItems);
+		inventory.AddCoins(savedDrop.dropedCoins);
+	}
 
-    private void LoadInventory()
-    {
-        inventory = new Inventory();
+	private void LoadInventory()
+	{
+		inventory = new Inventory();
 
-        if (InventorySaveData.Instance.itemList != null)
-        {
-            inventory.AddCoins(InventorySaveData.Instance.totalCoins);
+		if (InventorySaveData.Instance.itemList != null)
+		{
+			inventory.AddCoins(InventorySaveData.Instance.totalCoins);
 
-            //Item list (Inventory)
-            List<Item> itemsLoaded = new List<Item>();
+			//Item list (Inventory)
+			List<Item> itemsLoaded = new List<Item>();
 
-            for (int i = 0; i < InventorySaveData.Instance.itemList.Count; i++)
-            {
-                ItemData itemData = InventorySaveData.Instance.itemList[i];
+			for (int i = 0; i < InventorySaveData.Instance.itemList.Count; i++)
+			{
+				ItemData itemData = InventorySaveData.Instance.itemList[i];
 
-                Item item = null; 
-                foreach (Transform child in savedDrop.transform) //Retrieve if it already exist
-                {
-                    Item itemChild = child.GetComponent<Item>();
-                    if (itemChild.id == itemData.id)
-                    {
-                        item = itemChild;
-                    }
-                }
+				Item item = null;
+				foreach (Transform child in savedDrop.transform) //Retrieve if it already exist
+				{
+					Item itemChild = child.GetComponent<Item>();
+					if (itemChild.id == itemData.id)
+					{
+						item = itemChild;
+					}
+				}
 
-                if (item == null)
-                {
-                    item = Instantiate(dummyItem, savedDrop.transform);
-                }
+				if (item == null)
+				{
+					item = Instantiate(dummyItem, savedDrop.transform);
+				}
 
-                item.itemType = (Item.ItemType)itemData.itemType;
-                item.SetItemValues(); //For the sprite
-                item.id = itemData.id;
-                item.amount = itemData.amount;
+				item.itemType = (Item.ItemType)itemData.itemType;
+				item.SetItemValues(); //For the sprite
+				item.id = itemData.id;
+				item.amount = itemData.amount;
 
-                itemsLoaded.Add(item);
-            }
+				itemsLoaded.Add(item);
+			}
 
-            inventory.AddItems(itemsLoaded.ToArray());
-            
-            //Build
-            Item[] itemsBuild = new Item[4];
+			inventory.AddItems(itemsLoaded.ToArray());
 
-            for (int i = 0; i < InventorySaveData.Instance.itemsEquipped.Count; i++)
-            {
-                ItemData itemData = InventorySaveData.Instance.itemsEquipped[i];
+			//Build
+			Item[] itemsBuild = new Item[4];
 
-                Item item = null;
+			for (int i = 0; i < InventorySaveData.Instance.itemsEquipped.Count; i++)
+			{
+				ItemData itemData = InventorySaveData.Instance.itemsEquipped[i];
 
-                if (itemData != null)
-                {
-                    foreach (Item itemLoaded in itemsLoaded) //Equipped items will be on the inventory, no need to create another one
-                    {
-                        if (itemData.id == itemLoaded.id)
-                        {
-                            item = itemLoaded;
-                        }
-                    }
-                }
+				Item item = null;
 
-                itemsBuild[i] = item;
-            }
+				if (itemData != null)
+				{
+					foreach (Item itemLoaded in itemsLoaded) //Equipped items will be on the inventory, no need to create another one
+					{
+						if (itemData.id == itemLoaded.id)
+						{
+							item = itemLoaded;
+						}
+					}
+				}
 
-            invBuild.LoadItemEquipped(itemsBuild);
+				itemsBuild[i] = item;
+			}
 
-            //Progress Bars
-            ProgressBar[] progressBars = FindObjectsByType<ProgressBar>(FindObjectsSortMode.None);
-            foreach (ProgressBar bar in progressBars)
-            {
-                foreach (ProgressBarData barData in InventorySaveData.Instance.progressBarDatas)
-                {
-                    if ((Stat)bar.statToIncrease == barData.stat)
-                    {
-                        bar.LoadProgressBar(barData);
-                    }
-                }
-            }
-        }
-        
-    }
+			invBuild.LoadItemEquipped(itemsBuild);
 
-    public void SaveInventoryData()
-    {
-        InventorySaveData.Instance.totalCoins = inventory.GetCoins();
+			//Progress Bars
+			ProgressBar[] progressBars = FindObjectsByType<ProgressBar>(FindObjectsSortMode.None);
+			foreach (ProgressBar bar in progressBars)
+			{
+				foreach (ProgressBarData barData in InventorySaveData.Instance.progressBarDatas)
+				{
+					if ((Stat)bar.statToIncrease == barData.stat)
+					{
+						bar.LoadProgressBar(barData);
+					}
+				}
+			}
+		}
 
-        //Item List (inventory)
-        List<ItemData> itemsToSave = new List<ItemData>();
-        for (int i = 0; i < inventory.GetItemList().Count; i++)
-        {
-            Item item = inventory.GetItemList()[i];
+	}
 
-            ItemData itemData = new ItemData(item);
+	public void SaveInventoryData()
+	{
+		InventorySaveData.Instance.totalCoins = inventory.GetCoins();
 
-            itemsToSave.Add(itemData);
-        }
+		//Item List (inventory)
+		List<ItemData> itemsToSave = new List<ItemData>();
+		for (int i = 0; i < inventory.GetItemList().Count; i++)
+		{
+			Item item = inventory.GetItemList()[i];
 
-        InventorySaveData.Instance.itemList = itemsToSave;
+			ItemData itemData = new ItemData(item);
 
-        //Build
-        ItemData[] buildToSave = new ItemData[4]; 
-        for (int i = 0; i < invBuild.SaveItemsEquipped().Length; i++)
-        {
-            Item item = invBuild.SaveItemsEquipped()[i];
+			itemsToSave.Add(itemData);
+		}
 
-            ItemData itemData = null;
+		InventorySaveData.Instance.itemList = itemsToSave;
 
-            if (item != null)
-            {
-                itemData = new ItemData(item);
-            }
+		//Build
+		ItemData[] buildToSave = new ItemData[4];
+		for (int i = 0; i < invBuild.SaveItemsEquipped().Length; i++)
+		{
+			Item item = invBuild.SaveItemsEquipped()[i];
 
-            buildToSave[i] = itemData;
-        }
+			ItemData itemData = null;
 
-        InventorySaveData.Instance.itemsEquipped = buildToSave.ToList();
+			if (item != null)
+			{
+				itemData = new ItemData(item);
+			}
 
-        //Progress Bars
-        List<ProgressBarData> barsData = new List<ProgressBarData>();
-        ProgressBar[] progressBars = FindObjectsByType<ProgressBar>(FindObjectsSortMode.None);
+			buildToSave[i] = itemData;
+		}
 
-        foreach (ProgressBar bar in progressBars)
-        {
-            ProgressBarData barData = new ProgressBarData(bar);
-            barsData.Add(barData);
-        }
+		InventorySaveData.Instance.itemsEquipped = buildToSave.ToList();
 
-        InventorySaveData.Instance.progressBarDatas = barsData;
-    }
+		//Progress Bars
+		List<ProgressBarData> barsData = new List<ProgressBarData>();
+		ProgressBar[] progressBars = FindObjectsByType<ProgressBar>(FindObjectsSortMode.None);
+
+		foreach (ProgressBar bar in progressBars)
+		{
+			ProgressBarData barData = new ProgressBarData(bar);
+			barsData.Add(barData);
+		}
+
+		InventorySaveData.Instance.progressBarDatas = barsData;
+	}
 }

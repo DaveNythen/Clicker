@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SaveDrop : MonoBehaviour
 {
-    public Item[] dropedItems = new Item[2];
-    public int dropedCoins;
+	public Item[] dropedItems = new Item[2];
+	public int dropedCoins;
 
-    public void UpgradeDropSave(Item[] newItems, int newCoins)
-    {
-        dropedItems = newItems;
-        dropedCoins = newCoins;
-    }
+	public void UpgradeDropSave(Item[] newItems, int newCoins)
+	{
+		dropedItems = newItems;
+		dropedCoins = newCoins;
+	}
 }
