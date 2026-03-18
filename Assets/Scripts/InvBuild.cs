@@ -1,7 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using static DragItemSlot;
-using static UnityEditor.Progress;
 
 public class InvBuild : MonoBehaviour
 {
