@@ -12,6 +12,7 @@ public class ProgressBarData
 	public float maximum;
 	public float current;
 	public int level;
+	public int cost;
 
 	public ProgressBarData(ProgressBar bar)
 	{
@@ -19,5 +20,6 @@ public class ProgressBarData
 		maximum = bar.maximum;
 		current = bar.current;
 		level = bar.level;
+		cost = bar.cost;
 	}
 }

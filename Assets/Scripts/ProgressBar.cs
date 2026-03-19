@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using static InvBuild;
 
 [ExecuteInEditMode()]
 public class ProgressBar : MonoBehaviour
@@ -18,13 +19,18 @@ public class ProgressBar : MonoBehaviour
 	public int amountToUpgrade; //move to another script?
 
 	public int level = 1;
+	public int cost = 10;
 
 	private BuyStats buyStats;
 
 	//Event to increase an specific stat
-	public event EventHandler OnLevelUp;
+	public event EventHandler<OnLevelUpArgs> OnLevelUp;
+	public class OnLevelUpArgs : EventArgs
+	{
+		public int level;
+	}
 
-	private void Start()
+	private void Awake()
 	{
 		buyStats = FindFirstObjectByType<BuyStats>();
 	}
@@ -44,13 +50,14 @@ public class ProgressBar : MonoBehaviour
 		fill.color = color;
 	}
 
+	//Called from OnClick event
 	public void FillAmount()
 	{
-		if (buyStats.CanBuy())
+		if (buyStats.CanBuy(cost))
 		{
 			current += amountToUpgrade;
 
-			buyStats.SpendCoins();
+			buyStats.SpendCoins(cost);
 
 			if (current >= maximum)
 			{
@@ -61,12 +68,13 @@ public class ProgressBar : MonoBehaviour
 
 	private void LevelUp()
 	{
+		//Increase Stat on BuyStats.cs
+		OnLevelUp?.Invoke(this, new OnLevelUpArgs { level = level});
+
 		level++;
 		current = 0;
 		maximum += amountToUpgrade * level;
-
-		//Increase Stat on BuyStats.cs
-		OnLevelUp?.Invoke(this, EventArgs.Empty);
+		cost = Mathf.RoundToInt(cost + (cost * level/4));
 	}
 
 	//------ Only for save&load --------
@@ -75,6 +83,7 @@ public class ProgressBar : MonoBehaviour
 		maximum = barData.maximum;
 		current = barData.current;
 		level = barData.level;
+		cost = barData.cost;
 	}
 	//-----------------------------------
 }

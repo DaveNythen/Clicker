@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BuyStats : MonoBehaviour
 {
@@ -7,8 +8,6 @@ public class BuyStats : MonoBehaviour
 	public ProgressBar healthStatBar;
 
 	public GameObject StatsPanelInfo;
-
-	private int cost = 10; //always 10 for now, I'll scale the amount of clicks instead of the cost
 
 	private Inventory inventory;
 
@@ -19,20 +18,20 @@ public class BuyStats : MonoBehaviour
 		healthStatBar.OnLevelUp += HealthStatBar_OnLevelUp;
 	}
 
-	private void DamageStatBar_OnLevelUp(object sender, System.EventArgs e)
+	private void DamageStatBar_OnLevelUp(object sender, ProgressBar.OnLevelUpArgs e)
 	{
-		PlayerStats.Instance.damage += 0.1f;
+		PlayerStats.Instance.damage += 0.1f * e.level;
 		UpdateStatsPanelInfo();
 	}
-	private void PasiveStatBar_OnLevelUp(object sender, System.EventArgs e)
+	private void PasiveStatBar_OnLevelUp(object sender, ProgressBar.OnLevelUpArgs e)
 	{
-		PlayerStats.Instance.passiveDamage += 0.1f;
+		PlayerStats.Instance.passiveDamage += 0.1f * e.level;
 		UpdateStatsPanelInfo();
 	}
 
-	private void HealthStatBar_OnLevelUp(object sender, System.EventArgs e)
+	private void HealthStatBar_OnLevelUp(object sender, ProgressBar.OnLevelUpArgs e)
 	{
-		PlayerStats.Instance.health += 1;
+		PlayerStats.Instance.health += 1 * e.level;
 		UpdateStatsPanelInfo();
 	}
 
@@ -49,12 +48,12 @@ public class BuyStats : MonoBehaviour
 		this.inventory = inventory;
 	}
 
-	public bool CanBuy()
+	public bool CanBuy(int cost)
 	{
 		return inventory.GetCoins() >= cost ? true : false;
 	}
 
-	public void SpendCoins()
+	public void SpendCoins(int cost)
 	{
 		inventory.SpendCoins(cost);
 	}
