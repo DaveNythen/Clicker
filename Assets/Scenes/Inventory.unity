@@ -930,8 +930,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 114.27002, y: -238}
-  m_SizeDelta: {x: -129.27002, y: 75.82861}
+  m_AnchoredPosition: {x: 183.49, y: -238}
+  m_SizeDelta: {x: -198.49, y: 75.8286}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &251359595
 MonoBehaviour:
@@ -1488,8 +1488,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 114.27, y: -15}
-  m_SizeDelta: {x: -114.27002, y: 80}
+  m_AnchoredPosition: {x: 183.49, y: -15}
+  m_SizeDelta: {x: -183.49, y: 80}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &547984247
 MonoBehaviour:
@@ -1567,8 +1567,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 114.27, y: -122}
-  m_SizeDelta: {x: -114.27002, y: 85.72751}
+  m_AnchoredPosition: {x: 183.48642, y: -122}
+  m_SizeDelta: {x: -183.4865, y: 85.7275}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &593132743
 MonoBehaviour:
@@ -2141,8 +2141,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 114.27, y: -345}
-  m_SizeDelta: {x: -129.27002, y: 52.871826}
+  m_AnchoredPosition: {x: 183.49, y: -326}
+  m_SizeDelta: {x: -198.49, y: 80}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &866678033
 MonoBehaviour:
@@ -3141,8 +3141,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 15, y: -122}
-  m_SizeDelta: {x: -200.75562, y: 85.72751}
+  m_AnchoredPosition: {x: 15, y: -124.86}
+  m_SizeDelta: {x: -259.76, y: 80}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1106966113
 MonoBehaviour:
@@ -3166,10 +3166,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -3297,8 +3297,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 15, y: -345}
-  m_SizeDelta: {x: -200.75562, y: 52.871826}
+  m_AnchoredPosition: {x: 15, y: -326}
+  m_SizeDelta: {x: -259.76, y: 80}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1142828423
 MonoBehaviour:
@@ -3469,8 +3469,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -189.98999, y: 380}
-  m_SizeDelta: {x: 300.02563, y: 419.87183}
+  m_AnchoredPosition: {x: -254.10022, y: 380}
+  m_SizeDelta: {x: 428.2461, y: 419.8718}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1351771941
 MonoBehaviour:
@@ -3683,6 +3683,7 @@ MonoBehaviour:
   color: {r: 0.827451, g: 0.32941177, b: 0, a: 1}
   amountToUpgrade: 10
   level: 1
+  cost: 10
 --- !u!114 &1371154098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4168,7 +4169,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 15, y: -15}
-  m_SizeDelta: {x: -200.75586, y: 80}
+  m_SizeDelta: {x: -259.76, y: 80}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1571702736
 MonoBehaviour:
@@ -4192,10 +4193,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -4549,7 +4550,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 15, y: -238}
-  m_SizeDelta: {x: -200.75586, y: 75.82861}
+  m_SizeDelta: {x: -259.76, y: 75.8286}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1672535934
 MonoBehaviour:
@@ -4822,6 +4823,7 @@ MonoBehaviour:
   color: {r: 0.15294118, g: 0.68235296, b: 0.3764706, a: 1}
   amountToUpgrade: 10
   level: 1
+  cost: 10
 --- !u!114 &1739148715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5845,6 +5847,7 @@ MonoBehaviour:
   color: {r: 0.16078432, g: 0.5019608, b: 0.7254902, a: 1}
   amountToUpgrade: 10
   level: 1
+  cost: 10
 --- !u!114 &2096952126
 MonoBehaviour:
   m_ObjectHideFlags: 0
